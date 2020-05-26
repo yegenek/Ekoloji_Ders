@@ -1,3 +1,4 @@
+library(tidyverse)
 primary <- function(sample_size,freq_A = 0.5){
         freq_a <- 1-freq_A
         population <- data.frame()
