@@ -2,7 +2,6 @@ library(tidyverse)
 primary <- function(sample_size,freq_A = 0.5){
         freq_a <- 1-freq_A
         population <- data.frame()
-        #names(population) <- c("F1","F2","F3","F4","F5")
         # İlkin populasyon
         for(i in seq_len(sample_size)){
                 ind = sample(c("a","A"),size = 2,replace = TRUE,
@@ -16,11 +15,7 @@ primary <- function(sample_size,freq_A = 0.5){
 }
 
 
-library(tidyverse)
-
-Changing <- function(sample_size,freq_A,generations = 1:5){
-        
-        # Sistem 1 
+Changing <- function(sample_size,freq_A,generations = 1:5){ 
         population <- primary(sample_size,freq_A)
         for (i in generations){
                 generation <- subset(population,Generation == i-1)
@@ -43,17 +38,8 @@ Changing <- function(sample_size,freq_A,generations = 1:5){
 pop_1 <- Changing(100,0.7,1:5)
 
 table_1 <- table(pop_1$Inds,pop_1$Generation)
-barplot(table_1)
+table_1
 
-
-
-barplot(table_1, main="Genotip Frekanslarının Değişimi",
-        xlab="Kuşaklar", col=c("darkblue","red","green"),beside = TRUE,
-        legend = rownames(table_1))
-
-barplot(table_1, main="Genotip Frekanslarının Değişimi",
-        xlab="Kuşaklar", col=c("darkblue","red","green"),beside = TRUE,
-        legend = rownames(table_1))
 
 ggplot(pop_1,aes(x=Generation,fill = Inds)) +
         geom_bar(position = "dodge") +
@@ -72,6 +58,3 @@ frequency <- function(pop,generation){
 }
 
 frequency(pop_1,4)
-pop_1$Generation <- as.factor(pop_1$Generation)
-tapply(pop_1,pop_1$Generation,frequency)
-tapply(pop_1$Inds,pop_1$Generation,frequency)
