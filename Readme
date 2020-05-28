@@ -1,0 +1,13 @@
+# Ekoloji Laboratuvarı 9. ve 10. bölüm uygulamaları
+
+
+1-Generations: 
+Hardy Weinberg dengesini sağlayan koşullar altında örneklem büyüklüğü > 1000 (Sample_size)
+Kuşaklar boyunca populasyondaki diploid bir lokustaki allel frekanslarının değişimi. Eş baskınlık olduğu düşünüldüğü zaman fenotip ve genotip 3 ayrı sınıf içerisindedir.
+
+Genetik sürüklenmenin etkisini daha kısa sürede gözlemlemek için örneklem büyüklüğünü küçük alabilirsiniz (<30).
+
+2-Selection:
+Populasyon içerisine genotip ya da fenotipler için seçilim katsayılarının dahil edilmesi.
+En yüksek sağkalım değeri = 1. Diğer genotipler için dezavantajı 1 ile 0 arasındaki değerler girildiği zaman kuşaklar boyunca değişimi gözlemleyebilirsiniz.
+

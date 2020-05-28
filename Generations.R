@@ -1,11 +1,13 @@
 library(tidyverse)
-primary <- function(sample_size,freq_A = 0.5){
+
+# İlkin populasyon, fonksiyon içerisine iki argüman almaktadır, örneklem büyüklüğü ve A'nın frekansı
+primary <- function(sample_size,freq_A = 0.6){
         freq_a <- 1-freq_A
         population <- data.frame()
         # İlkin populasyon
         for(i in seq_len(sample_size)){
-                ind = sample(c("a","A"),size = 2,replace = TRUE,
-                             prob = c(freq_a,freq_A))
+                ind = sample(c("A","a"),size = 2,replace = TRUE,
+                             prob = c(freq_A,freq_a))
                 ind_1 = paste(ind[1],ind[2],sep = ".")
                 if(ind_1 == "a.A"){ind_1 = "A.a"}
                 ind_1 = data.frame("Inds" = ind_1,"Generation" = 0)
@@ -14,7 +16,7 @@ primary <- function(sample_size,freq_A = 0.5){
         return(population)
 }
 
-
+# Kuşaklar boyunca populasyon değişimi fonksiyonu, argümanlar populasyon büyüklüğü ve kuşak sayısı, 1:n
 Changing <- function(sample_size,freq_A,generations = 1:5){ 
         population <- primary(sample_size,freq_A)
         for (i in generations){
@@ -35,20 +37,25 @@ Changing <- function(sample_size,freq_A,generations = 1:5){
         return(population)
 }
 
-pop_1 <- Changing(100,0.7,1:5)
+pop_1 <- Changing(30,0.5,1:5)
 
-table_1 <- table(pop_1$Inds,pop_1$Generation)
-table_1
+# Genotip sayılarının değişimi tablosu
+table_change <- table(pop_1$Inds,pop_1$Generation)
+table_change
+# Frekans olarak, /populasyon_büyüklüğü
+table_change/30 
 
-
+#Değişim Grafiği
 ggplot(pop_1,aes(x=Generation,fill = Inds)) +
         geom_bar(position = "dodge") +
         xlab("Kuşaklar")+
         ylab("Sayı")+
-        scale_x_continuous(breaks=c(0:5))+
+        scale_fill_grey(start=0.8, end=0.2) +
+        scale_x_continuous(breaks=c(0:5))+ # breaks'i kuşak sayısına bağlı olarak değiştirin örn: 10 kuşak için 0:10
         labs(fill = "Genotip") +
         ggtitle("Genotip Frekanslarının Değişimi")
 
+# Allel frekanslarının hesaplanması, fonksiyon argümanları 1.populasyon, 2.kuşak
 frequency <- function(pop,generation){
         gen <- subset(pop,Generation == generation)
         freq_A = (2*sum(gen$Inds == "A.A")+sum(gen$Inds == "A.a"))/(2*dim(gen)[1])
@@ -57,4 +64,5 @@ frequency <- function(pop,generation){
         print(freq_a)
 }
 
-frequency(pop_1,4)
+# 5. kuşaktaki allel frekansları
+frequency(pop_1,5)
