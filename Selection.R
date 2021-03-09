@@ -43,7 +43,7 @@ Selection <- function(sample_size,freq_A =0.1,sel_coef = c(1,0.8,0.5),generation
         
 }
 
-pop_1 <- pop_1 <- Selection(sample_size = 1000,
+pop_1 <- Selection(sample_size = 1000,
                             freq_A = 0.8,sel_coef = c(1,0.8,0.6),generations = 1:5)
 
 
